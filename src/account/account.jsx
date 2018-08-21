@@ -16,7 +16,9 @@ export default class AccountLookup extends React.Component {
       accounts: [],
       eos: EosClient(),
       maa: '',
-      eosamount: ''
+      eosamount: '',
+      userinfo: '',
+      income: ''
     };
 
   }
@@ -32,19 +34,11 @@ export default class AccountLookup extends React.Component {
   }
 
   getAccountDetail(name) {
-    /*this.state.eos.getAccount(name).then((data) => {
-      this.state.eos.getCurrencyBalance('eosio.token',name).then((currency) => {
-        data.currency = currency;
-        //console.log(data);
-        const newAccounts = update(this.state.accounts, {$push: [
-          data,
-        ]});
-        this.setState({ loading:false, error:false, accounts: newAccounts })
-      });
-    }).catch((e) => {
-      console.error(e);
-      this.setState({loading:false, error:true});
-    });*/
+    if (!name)
+    {
+      this.setState({loading:false, error:false});
+      return;
+    }
 
     this.state.eos.getCurrencyBalance({ code: "eosmaatoken4", account: name, symbol: "MAA" }).then(data =>{
       this.setState({maa: data[0]});
@@ -56,9 +50,50 @@ export default class AccountLookup extends React.Component {
       //console.log(data[0]);
       });
 
-    //console.log(Eos.modules.format.encodeName(name, false));
-    this.setState({loading:false, error:false});
+    const bigName = Eos.modules.format.encodeName(name, false);
+    const userinfo = {
+      json: true,
+      scope: "eosmaacont44",
+      code: "eosmaacont44",
+      table: "userinfo",
+      table_key: 'userName',
+      lower_bound: bigName,
+      limit: 10
+    };
 
+    this.state.eos.getTableRows(userinfo).then((table) => {
+      const filteredRows = table.rows.filter((row) => row.userName === bigName);
+      if (filteredRows.length === 1)
+      {
+        this.setState({userinfo: filteredRows[0]});
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    const income = {
+      json: true,
+      scope: "eosmaacont44",
+      code: "eosmaacont44",
+      table: "income",
+      table_key: 'userName',
+      lower_bound: bigName,
+      limit: 10
+    };
+
+
+    this.state.eos.getTableRows(income).then((table) => {
+      const filteredRows = table.rows.filter((row) => row.userName === bigName);
+      if (filteredRows.length === 1)
+      {
+        this.setState({income: filteredRows[0]});
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    
+    this.setState({loading:false, error:false});
   }
 
   renderAccount(account) {
@@ -70,8 +105,17 @@ export default class AccountLookup extends React.Component {
         </Panel.Heading>
         <Panel.Body>
         <div>
+            <div>
+              <Button type="submit" bsStyle="warning">Active</Button>
+              {'  '}
+              <Button type="submit" bsStyle="warning">Input</Button>
+            </div>
             <h4>可用EOS: {this.state.eosamount}</h4>
             <h4>可用MAA: {this.state.maa}</h4>
+            <h4>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
+            <h4>Input Time: {this.state.income.inputTime}</h4>
+            <h4>Refer User: {this.state.userinfo.referUser}</h4>
+            <h4>Level: {this.state.userinfo.level}</h4>
           
         </div>
         </Panel.Body>

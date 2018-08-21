@@ -64,7 +64,7 @@ export default class ChainInfo extends React.Component {
   		this.setState({
   			data : table.rows[0]
   		});
-  	})
+  	});
 
   	const userinfo = {
   	  json: true,
@@ -76,7 +76,7 @@ export default class ChainInfo extends React.Component {
 
   	this.state.eos.getTableRows(userinfo).then((table) => {
   		//console.log(table.rows);
-  	})
+  	});
 
   }
 
