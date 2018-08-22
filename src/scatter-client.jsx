@@ -5,6 +5,8 @@ import { Button, Label, Panel } from 'react-bootstrap';
 import AccountLookup from './account/account.jsx';
 import ChainInfo from './account/info.jsx';
 import TransferToken from './account/transfer.jsx';
+import './style/custom.css';
+
 
 
 const network = {
@@ -89,7 +91,7 @@ export class ScatterConnect extends React.Component {
 
   renderScatter() {
     const id = this.state.identity ? (
-          <Label bsStyle="info">Hello {this.state.identity.name}</Label>
+            <Label bsStyle="info">Hello {this.state.identity.accounts[0].name}</Label>
         ) : ( <div/>);
 
     const button = this.state.identity ? (
@@ -115,17 +117,11 @@ export class ScatterConnect extends React.Component {
 
     return (
       <Fragment>
-        <Panel bsStyle="primary">
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">Scatter Integration</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body><h3>{id} {button}</h3></Panel.Body>
-        </Panel>
+        <div className="blurryboy"></div>
+        <h3>{id} {button}</h3>
         {chainInfo}
         {account}
-        {tokenTransfer}
-        
-
+        {/*tokenTransfer*/}      
       </Fragment>
     );
   }

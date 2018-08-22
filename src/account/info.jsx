@@ -3,6 +3,9 @@ import update from 'react-addons-update';
 import Eos from 'eosjs'
 import { Panel, Label } from 'react-bootstrap';
 import EosClient from '../eos-client.jsx';
+import '../style/base.css';
+import '../style/custom.css';
+
 
 export default class ChainInfo extends React.Component {
   constructor(props, context) {
@@ -66,18 +69,6 @@ export default class ChainInfo extends React.Component {
   		});
   	});
 
-  	const userinfo = {
-  	  json: true,
-      scope: "eosmaacont44",
-      code: "eosmaacont44",
-      table: "income",
-      limit: 10
-  	};
-
-  	this.state.eos.getTableRows(userinfo).then((table) => {
-  		//console.log(table.rows);
-  	});
-
   }
 
   getCountdownTime(timestamp){
@@ -92,23 +83,35 @@ export default class ChainInfo extends React.Component {
 
   render() {
   	const html = this.state.data ? (
-  		<Panel bsStyle="success">
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">MAA Status</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-          	<h2>
-				<Label bsStyle="success">Bonus: {this.state.data.bonos / 10000} EOS</Label>
-				{'  '}
-	          	<Label bsStyle="info">Time Left: {this.getCountdownTime(this.state.data.latestInputTime)}</Label>
-			</h2>	
-	          	<div>latest input id： {this.state.data.latestInputId}</div>
-	          	<div>cash： {this.state.data.cash}</div>
-	          	<div>latest input user： {this.state.data.latestInputUser}</div>
+      <div className='rounded-0 text-center text-light teaser-cover'>
+        <div className='container'>
+          <h1 className="display-1 scammed h1white">MY EOS EXIT SCAMMING</h1>
+        <h2 className='display-3'>
+          <span className='ethglitch titleglow'>Bonus: {this.state.data.bonos / 10000} EOS</span>
+          <span className='headtimer'>{this.getCountdownTime(this.state.data.latestInputTime)}</span>
+        </h2>
+        </div>
+        {/*<h2>
+          <Label bsStyle="success">Bonus: {this.state.data.bonos / 10000} EOS</Label>
+          {'  '}
+                <Label bsStyle="info">Time Left: {this.getCountdownTime(this.state.data.latestInputTime)}</Label>
+         </h2>*/}
+                <p className='subinfo'>latest input id： {this.state.data.latestInputId}</p>
+                <p className='subinfo'>cash： {this.state.data.cash}</p>
+                <p className='subinfo'>latest input user： {this.state.data.latestInputUser}</p>
+                <a href="javascript:void(0)" className="buyOneTicket btn btn-lg btn-block btn-purp pulse marginb"> 
+                  <div className="row"> 
+                    <div className="col-sm-1.5 no-mobile"> SEND EOS</div> 
+                  </div> 
+                </a>
+        
+        
+      </div>
+
+
           	
-          </Panel.Body>
-          {/*<Panel.Footer>EOS主网信息</Panel.Footer>*/}
-        </Panel>
+          	
+
         ) : (<div></div>);
   	return (
 		html

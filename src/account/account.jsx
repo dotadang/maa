@@ -2,7 +2,9 @@ import React from 'react'
 import update from 'react-addons-update';
 import { Grid, Row, Col, Panel, Form, FormGroup, FormControl, ControlLabel, HelpBlock,ListGroup,ListGroupItem, Button, ProgressBar, Alert, Table,Label } from 'react-bootstrap';
 import { EosClient } from '../scatter-client.jsx';
-import Eos from 'eosjs'
+import Eos from 'eosjs';
+import '../style/base.css';
+import '../style/custom.css';
 
 export default class AccountLookup extends React.Component {
   constructor(props, context) {
@@ -98,28 +100,45 @@ export default class AccountLookup extends React.Component {
 
   renderAccount(account) {
     return (
-      // <ListGroupItem key={account.account_name}>{account.account_name}</ListGroupItem>
-      <Panel bsStyle="info" key={this.props.accountName}>
-        <Panel.Heading>
-          <Panel.Title componentClass="h3"><b>{this.props.accountName}</b></Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-        <div>
-            <div>
-              <Button type="submit" bsStyle="warning">Active</Button>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-sm colstyle'> 
+            <div className='tab-pane show active'>
+              <div className='accountinfo'>
+              
+              <h4>可用EOS: {this.state.eosamount}</h4>
+              <h4>可用MAA: {this.state.maa}</h4>
+              <h4>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
+              <h4>Input Time: {this.state.income.inputTime}</h4>
+              <h4>Refer User: {this.state.userinfo.referUser}</h4>
+              <h4>Level: {this.state.userinfo.level}</h4>  
+
+              <Button type="button" bsStyle="primary" className='btn btn-purp btn-lg ticketProcess'>Active</Button>
               {'  '}
-              <Button type="submit" bsStyle="warning">Input</Button>
+              <Button type="button" bsStyle="primary" className='btn btn-purp btn-lg ticketProcess'>Input</Button>
             </div>
-            <h4>可用EOS: {this.state.eosamount}</h4>
-            <h4>可用MAA: {this.state.maa}</h4>
-            <h4>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
-            <h4>Input Time: {this.state.income.inputTime}</h4>
-            <h4>Refer User: {this.state.userinfo.referUser}</h4>
-            <h4>Level: {this.state.userinfo.level}</h4>
-          
+            </div>        
+          </div>
+          <div className='col-sm colstyle'>
+            <div className='tab-content'>           
+            
+            <div className='tab-pane show active'>
+              <div className='accountinfo'>
+              <Button type="button" bsStyle="primary">Active</Button>
+              {'  '}
+              <Button type="button" bsStyle="primary">Input</Button>
+              <h4>可用EOS: {this.state.eosamount}</h4>
+              <h4>可用MAA: {this.state.maa}</h4>
+              <h4>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
+              <h4>Input Time: {this.state.income.inputTime}</h4>
+              <h4>Refer User: {this.state.userinfo.referUser}</h4>
+              <h4>Level: {this.state.userinfo.level}</h4>  
+            </div>
+            </div>
+            </div>          
+          </div>
         </div>
-        </Panel.Body>
-      </Panel>
+      </div>
     );
   }
 

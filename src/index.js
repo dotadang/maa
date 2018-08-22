@@ -44,7 +44,7 @@ class Toolkit extends React.Component {
         </Navbar.Header>
       </Navbar>
 
-      <div className="container theme-showcase" role="main">
+      <div className="container" role="main">
         <ScatterConnect></ScatterConnect>
 
             {/*<Route exact path="/" component={Home} />
