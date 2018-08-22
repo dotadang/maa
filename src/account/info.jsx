@@ -5,6 +5,7 @@ import { Panel, Label } from 'react-bootstrap';
 import EosClient from '../eos-client.jsx';
 import '../style/base.css';
 import '../style/custom.css';
+import getCountdownTime from '../tool/dateTool.js';
 
 
 export default class ChainInfo extends React.Component {
@@ -71,16 +72,6 @@ export default class ChainInfo extends React.Component {
 
   }
 
-  getCountdownTime(timestamp){
-  	const now = Date.parse(new Date());
-  	const t = timestamp*1000 + 24*60*60*1000 - now;
-  	let seconds = Math.floor((t / 1000) % 60)
-    let minutes = Math.floor((t / 1000 / 60) % 60)
-    let hours = Math.floor((t / (1000 * 60 * 60)) % 24)
-    let days = Math.floor(t / (1000 * 60 * 60 * 24))
-  	return hours + ":" + minutes + ":" + seconds;
-  }
-
   render() {
     var lastUser = ''
     if (this.state.data && this.state.data.latestInputUser)
@@ -93,34 +84,23 @@ export default class ChainInfo extends React.Component {
           <h1 className="display-1 scammed h1white">MY EOS EXIT SCAMMING</h1>
         <h2 className='display-3'>
           <span className='ethglitch titleglow'>Bonus: {this.state.data.bonos / 10000} EOS</span>
-          <span className='headtimer'>{this.getCountdownTime(this.state.data.latestInputTime)}</span>
+          <span className='headtimer'>{getCountdownTime(this.state.data.latestInputTime)}</span>
         </h2>
         </div>
-        {/*<h2>
-          <Label bsStyle="success">Bonus: {this.state.data.bonos / 10000} EOS</Label>
-          {'  '}
-                <Label bsStyle="info">Time Left: {this.getCountdownTime(this.state.data.latestInputTime)}</Label>
-         </h2>*/}
-                <p className='subinfo'>latest input id： {this.state.data.latestInputId}</p>
-                <p className='subinfo'>cash： {this.state.data.cash}</p>
-                <p className='subinfo'>latest input user： {lastUser}</p>
-                <a href="javascript:void(0)" className="buyOneTicket btn btn-lg btn-block btn-purp pulse marginb"> 
-                  <div className="row"> 
-                    <div className="col-sm-1.5 no-mobile"> SEND EOS</div> 
-                  </div> 
-                </a>
-        
-        
+        <p className='subinfo'>latest input id： {this.state.data.latestInputId}</p>
+        <p className='subinfo'>cash： {this.state.data.cash}</p>
+        <p className='subinfo'>latest input user： {lastUser}</p>
+        <a href="javascript:void(0)" className="buyOneTicket btn btn-lg btn-block btn-purp pulse marginb"> 
+          <div className="row"> 
+            <div className="col-sm-1.5 no-mobile"> SEND EOS</div> 
+          </div> 
+        </a>     
       </div>
-
-
-          	
-          	
-
         ) : (<div></div>);
+
   	return (
-		html
-  		)
+		  html
+  		);
   }
 }
 module.hot.accept();

@@ -101,7 +101,7 @@ export class ScatterConnect extends React.Component {
     );
 
     const account = this.state.identity ? (
-      <AccountLookup accountName={this.state.identity.accounts[0].name}/>
+      <AccountLookup accountName={this.state.identity.accounts[0].name} authority={this.state.identity.accounts[0].authority}/>
       ) : ( <div/>);
 
     const chainInfo = <ChainInfo/>;
