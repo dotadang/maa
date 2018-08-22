@@ -5,6 +5,8 @@ import { EosClient } from '../scatter-client.jsx';
 import Eos from 'eosjs';
 import '../style/base.css';
 import '../style/custom.css';
+var _require = require('bytebuffer'),
+    Long = _require.Long;
 
 export default class AccountLookup extends React.Component {
   constructor(props, context) {
@@ -99,6 +101,11 @@ export default class AccountLookup extends React.Component {
   }
 
   renderAccount(account) {
+    var referUser = ''
+    if (this.state.userinfo.referUser)
+    {
+      referUser = Eos.modules.format.decodeName(this.state.userinfo.referUser, false);
+    }
     return (
       <div className='container'>
         <div className='row'>
@@ -106,12 +113,12 @@ export default class AccountLookup extends React.Component {
             <div className='tab-pane show active'>
               <div className='accountinfo'>
               
-              <h4>可用EOS: {this.state.eosamount}</h4>
-              <h4>可用MAA: {this.state.maa}</h4>
-              <h4>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
-              <h4>Input Time: {this.state.income.inputTime}</h4>
-              <h4>Refer User: {this.state.userinfo.referUser}</h4>
-              <h4>Level: {this.state.userinfo.level}</h4>  
+              <h4 className='lead nomarginb'>可用EOS: {this.state.eosamount}</h4>
+              <h4 className='lead nomarginb'>可用MAA: {this.state.maa}</h4>
+              <h4 className='lead nomarginb'>Input Quant: {this.state.income.inputQuant / 10000} EOS</h4>
+              <h4 className='lead nomarginb'>Input Time: {this.state.income.inputTime}</h4>
+              <h4 className='lead nomarginb'>Refer User: {referUser}</h4>
+              <h4 className='lead nomarginb'>Level: {this.state.userinfo.level}</h4>  
 
               <Button type="button" bsStyle="primary" className='btn btn-purp btn-lg ticketProcess'>Active</Button>
               {'  '}

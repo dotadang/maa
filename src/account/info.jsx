@@ -82,6 +82,11 @@ export default class ChainInfo extends React.Component {
   }
 
   render() {
+    var lastUser = ''
+    if (this.state.data && this.state.data.latestInputUser)
+    {
+      lastUser = Eos.modules.format.decodeName(this.state.data.latestInputUser, false);
+    }
   	const html = this.state.data ? (
       <div className='rounded-0 text-center text-light teaser-cover'>
         <div className='container'>
@@ -98,7 +103,7 @@ export default class ChainInfo extends React.Component {
          </h2>*/}
                 <p className='subinfo'>latest input id： {this.state.data.latestInputId}</p>
                 <p className='subinfo'>cash： {this.state.data.cash}</p>
-                <p className='subinfo'>latest input user： {this.state.data.latestInputUser}</p>
+                <p className='subinfo'>latest input user： {lastUser}</p>
                 <a href="javascript:void(0)" className="buyOneTicket btn btn-lg btn-block btn-purp pulse marginb"> 
                   <div className="row"> 
                     <div className="col-sm-1.5 no-mobile"> SEND EOS</div> 
